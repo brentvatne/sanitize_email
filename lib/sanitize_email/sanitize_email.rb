@@ -95,6 +95,9 @@ module NinthBit
           return nil if real_addresses.nil?
           return sanitized_addresses if sanitized_addresses.nil? || !self.class.use_actual_email_as_sanitized_user_name
 
+          real_addresses = Array.wrap(real_addresses)
+          sanitized_addresses = Array.wrap(sanitized_addresses)
+
           out = real_addresses.inject([]) do |result, real_recipient|
             result << sanitized_addresses.map{|sanitized| "#{real_recipient} <#{sanitized}>"}
             result
